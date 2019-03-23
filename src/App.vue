@@ -39,6 +39,7 @@
   
 </template>
 <script>
+
 import Home from "@/views/home.vue"
 import Login from "@/views/login.vue"
 export default {
