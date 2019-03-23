@@ -40,7 +40,7 @@
 </template>
 <script>
 import Home from "@/views/home.vue"
-import Login from "@/components/login/login.vue"
+import Login from "@/views/login.vue"
 export default {
   data(){
     return {
