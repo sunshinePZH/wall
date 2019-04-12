@@ -1,8 +1,12 @@
 // api map
 const basePath = './';
 const Login = require(basePath + 'login.js');
-const map = {
-    // 登录
-    login: Login
+
+const createModuleInstance = (api, params) => {
+    switch (api) {
+        // 登录
+        case 'login':
+            return new Login(params);
+    }
 }
-module.exports = map;
+module.exports = createModuleInstance;

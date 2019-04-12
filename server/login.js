@@ -4,7 +4,10 @@ class Login {
     }
 
     login() {
-        return 'success'
+        return Promise.resolve('success')
+    }
+    loginOut() {
+
     }
 }
 

@@ -1,12 +1,40 @@
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
+const querystring = require('querystring');
 
-const apiMap = require('server/api.js')
+const createModuleInstance = require('./server/api.js');
 
 // 处理接口
-const execApi = (api) => {
-    const path = apiMap[api];
+const execApi = async (api, params) => {
+    const arr = api.split('/');
+    const moduleName = arr[0];
+    const fnName = arr[1] || moduleName;
+    // 模块实例
+    const module = createModuleInstance(moduleName);
+    // 执行模块方法
+    const result = await module[fnName](params);
+    return result;
+}
+
+// 获取 解析参数 
+const getParams = (request) => {
+    return new Promise((resolve, reject) => {
+        if (request.method === 'GET') {
+            let query = url.parse(request.url).query;
+            query = querystring.parse(query);
+            resolve(query);
+        } else {
+            let query = '';
+            request.on('data', (chunk) => {
+                query += chunk;
+            });
+            request.on('end', () => {
+                resolve(query);
+            });
+        }
+    });
+    
 }
 
 // 读取文件
@@ -23,19 +51,25 @@ const readFiles = (path) => {
 http.createServer( async (request, response) => {
     let statuCode = 200;
     let data;
+    console.log(`request:${request.url}`)
     const urlObject = url.parse(request.url);
     const pathname = urlObject.pathname;
-    // 请求接口
-    if (pathname.slice(1, 4) === 'api') {
-        const api = pathname.slice(4);
-        data = await execApi(api).catch( err => {
-            statuCode = 110;
+    // 请求接口 "/api/module/fn"
+    if (pathname.slice(0, 4) === '/api') {
+        // 获取传递的参数
+        const params = await getParams(request);
+        let api = pathname.slice(5);
+        data = await execApi(api, params).catch( error => {
+            statuCode = 1001;
+            data = error;
         });
+        // console.log(`返回值:`, data)
     // 请求静态文件
     } else {
-        data = await readFiles(pathname).catch( err => {
-            console.error(err);
+        data = await readFiles(pathname).catch( error => {
+            console.error(error);
             statuCode = 404;
+            data = error;
         });
     }
 
