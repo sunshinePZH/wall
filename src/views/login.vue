@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="login" >
         <div class="login_box">
             <h3>登录</h3>
             <input type="text" placeholder="请输入用户名">
@@ -7,7 +7,7 @@
             <input type="button" value="登录" class="login_btn">
             <span>免费注册</span>
             <span>忘记密码</span>
-            <i class="iconfont icon-guanbi2"></i>
+            <div class="close" @click="closeTan"><i class="iconfont icon-guanbi2"></i></div>
         </div>
     </div>
 </template>
@@ -16,7 +16,12 @@ export default {
     name:"login",
     data(){
         return {
-
+           
+        }
+    },
+    methods:{
+        closeTan:function(){
+            this.$emit("hanlderLogin",false)
         }
     }
 }
@@ -61,6 +66,14 @@ export default {
             font-size: 12px;
             margin-left: 5px;
             margin-top: 10px;
+        }
+        & .close{
+           position: absolute; 
+           right: 20px;
+           top: 20px;
+           & i{
+             font-size: 24px;
+           }
         }
     }
 }

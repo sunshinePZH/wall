@@ -5,7 +5,7 @@
         <p>大橙子墙布</p>
         <div class="setbox">
           <ul>
-            <li><a href="#">登录</a></li>
+            <li><a href="#" @click="hanlderLogin(true)">登录</a></li>
             <li><a href="#">注册</a></li>
             <li><a href="#">个人中心</a></li>
           </ul>
@@ -34,7 +34,7 @@
     <div class="footer">
       <p>大橙子公司版权所有</p>
     </div>
-     <Login/>
+     <Login  v-if="isLogin" @hanlderLogin="hanlderLogin"/>
   </div>
   
 </template>
@@ -45,12 +45,19 @@ import Login from "@/views/login.vue"
 export default {
   data(){
     return {
-
+      isLogin:false
     }
   },
   components:{
     Home,
     Login
+  },
+  methods:{
+    hanlderLogin:function(bool){
+      console.log(bool)
+      this.isLogin=bool;
+    }
+    
   }
 }
 </script>
