@@ -6,7 +6,7 @@
         <div class="setbox">
           <ul>
             <li><a href="#" @click="hanlderLogin(true)">登录</a></li>
-            <li><a href="#">注册</a></li>
+            <li><a href="#" @click="hanlderRegister(true)">注册</a></li>
             <li><a href="#">个人中心</a></li>
           </ul>
         </div>
@@ -35,6 +35,7 @@
       <p>大橙子公司版权所有</p>
     </div>
      <Login  v-if="isLogin" @hanlderLogin="hanlderLogin"/>
+     <Register v-if="isRegister" @hanlderRegister="hanlderRegister"/>
   </div>
   
 </template>
@@ -42,20 +43,25 @@
 
 import Home from "@/views/home.vue"
 import Login from "@/views/login.vue"
+import Register from "@/views/register.vue"
 export default {
   data(){
     return {
-      isLogin:false
+      isLogin:false,
+      isRegister:false
     }
   },
   components:{
     Home,
-    Login
+    Login,
+    Register
   },
   methods:{
     hanlderLogin:function(bool){
-      console.log(bool)
       this.isLogin=bool;
+    },
+    hanlderRegister:function(bool){
+      this.isRegister=bool;
     }
     
   }
