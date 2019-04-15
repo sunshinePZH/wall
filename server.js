@@ -3,6 +3,7 @@ const fs = require('fs');
 const url = require('url');
 const querystring = require('querystring');
 
+const util = require('./server/utils/util.js');
 const createModuleInstance = require('./server/api.js');
 
 // 处理接口
@@ -11,9 +12,11 @@ const execApi = async (api, params) => {
     const moduleName = arr[0];
     const fnName = arr[1] || moduleName;
     // 模块实例
-    const module = createModuleInstance(moduleName);
-    // 执行模块方法
-    const result = await module[fnName](params);
+    const oModule = createModuleInstance(moduleName);
+    // 执行模块方法（被执行的方法可能是promise/async => 加上await）
+    const result = await oModule[fnName](params);
+    // console.log(util.formatSqlData(result))
+    console.log('execApi', result)
     return result;
 }
 
@@ -59,11 +62,8 @@ http.createServer( async (request, response) => {
         // 获取传递的参数
         const params = await getParams(request);
         let api = pathname.slice(5);
-        data = await execApi(api, params).catch( error => {
-            statuCode = 1001;
-            data = error;
-        });
-        // console.log(`返回值:`, data)
+        data = await execApi(api, params);
+        console.log(`返回值:`, data)
     // 请求静态文件
     } else {
         data = await readFiles(pathname).catch( error => {
@@ -77,6 +77,7 @@ http.createServer( async (request, response) => {
     response.writeHead(statuCode, {'Content-Type': 'text/html'});
     // 响应data
     if (data) {
+        data = Array.isArray(data) ? JSON.stringify(data) : data;
         response.write(data);
     }
     response.end();
