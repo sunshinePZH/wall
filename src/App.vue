@@ -69,26 +69,8 @@ export default {
 </script>
 
 <style lang="postcss">
-
-*{
-  margin:0;
-  padding: 0;
-}
-
-a{
-  text-decoration: none;
-}
-li{
-  list-style: none;
-}
-/*清除浮动代码*/
-.clearfloat:after{
-  display:block;
-  clear:both;content:"";
-  visibility:hidden;
-  height:0;
-  }
-.clearfloat{zoom:1}
+/* 相对路径导 */
+@import url(./css/base.css);
 .top{
   padding-top:10px;
   & a{

@@ -6,19 +6,14 @@ class Login extends Base{
     }
 
     async login() {
-        const data = await this.queryLoginData().catch((err) => {
+        const data = await this._queryLoginData().catch((err) => {
             console.error('login', err);
         });
         return data;
     }
-    queryLoginData() {
+    _queryLoginData() {
         const sql = 'SELECT * FROM students';
-        return new Promise((resolve, reject) => {
-            this.db.query(sql, (error, res, fields) => {
-                error && console.error(error);
-                resolve(error ? '数据库查询错误' : res);
-            });
-        });
+        return this.queryDB(sql);
     }
     loginOut() {
         
