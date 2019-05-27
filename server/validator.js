@@ -8,9 +8,9 @@ const $ ={};
  * 邮箱校验
  */
 $.checkEmail = (str) => {
-    const regex = /\w+\@\w+\..*+/
+    const regex = /^\w+\@\w+\..+$/;
     return regex.test(str);
 }
 
 const validator = $;
-export default validator;
+module.exports = validator;
