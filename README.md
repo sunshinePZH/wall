@@ -42,3 +42,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 新建分类
 - 上传：选择分类后进入后上传
 - 管理：删除图片，编辑图片信息
+
+
