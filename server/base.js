@@ -5,6 +5,18 @@ class Base {
     constructor() {
         this.db = connentMysql();
     }
+    /**
+     * 查找数据库，只resolve（有错误返回'数据库查询错误'）
+     * @param {str} sql 
+     */
+    queryDB(sql) {
+        return new Promise((resolve, reject) => {
+            this.db.query(sql, (error, res, fields) => {
+                error && console.error(error) && reject('数据库查询错误');
+                resolve(res);
+            });
+        });
+    }
 }
 
 const connentMysql = () => {
@@ -12,7 +24,7 @@ const connentMysql = () => {
         host: 'localhost',
         user: 'root',
         password: 'yqc900718!',
-        database: 'test',
+        database: 'wall',
     });
     connection.connect();
     return connection;
