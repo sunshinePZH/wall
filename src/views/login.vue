@@ -12,6 +12,10 @@
       <div class="close" @click="closeTan">
         <i class="iconfont icon-guanbi2"></i>
       </div>
+      <div class="other_login">
+          <i class="iconfont icon-qq"></i>
+          <i class="iconfont icon-weixin"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +40,7 @@ export default {
   position: fixed;
   top: 0;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
   & .login_box {
     width: 350px;
     background-color: #fff;
@@ -74,6 +79,20 @@ export default {
       top: 20px;
       & i {
         font-size: 24px;
+      }
+    }
+    & .other_login{
+      clear: both;
+      text-align: center;
+      & i{
+        font-size: 40px;
+        margin:20px 10px;
+      }
+      & .icon-qq{
+        color: rgb(94, 170, 222);
+      }
+      & .icon-weixin{
+        color: #62b900;
       }
     }
   }
