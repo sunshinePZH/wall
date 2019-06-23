@@ -5,9 +5,13 @@
         </div>
         <div>
            <!-- <Rose/>  -->
-           <keep-alive>
+           <!-- <keep-alive>
                 <component :is="isShow"></component>
-           </keep-alive>
+           </keep-alive> -->
+           <Rose v-show="isShow==='Rose'"/>
+           <South v-show="isShow==='South'"/>
+           <Dream v-show="isShow==='Dream'"/>
+           <Moistening v-show="isShow==='Moistening'"/>
         </div>
     </div>
 </template>
