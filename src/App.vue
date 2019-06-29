@@ -27,18 +27,14 @@
         <i class="iconfont icon-guanbi2"></i>
       </a>
       <div class="nav_link">
-        <ul class="clearfloat">
+        <ul class="clearfloat" @click="navShowOrHide(false)">
           <li>
-            <a href="#">主页</a>
+            <router-link to="/">主页</router-link>
           </li>
-          <!-- <li>
-            <a href="#">推荐</a>
-          </li> -->
-          <li>
-            <a href="#">新品</a>
+          <li><a href="#">新品</a>
           </li>
           <li>
-            <a href="#">分类</a>
+            <router-link to="/products">分类</router-link>
           </li>
           <li>
             <a href="#">关于我们</a>
@@ -46,14 +42,8 @@
         </ul>
       </div>
     </div>
-    <!-- 中间内容 -->
-    <Home/>
-    <!-- <div id="nav">
-      <ul></ul>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>-->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
     <!-- 尾部 -->
     <div class="footer">
       <p>大橙子公司版权所有</p>

@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
     .type_box{
         width:80%;
         margin:50px auto;
@@ -68,5 +68,8 @@ export default {
              
         }
     }
+    /* .type_item{
+        height: 300px;
+    } */
     
 </style>

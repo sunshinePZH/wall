@@ -22,6 +22,9 @@ export default {
              float: left;
              margin-right:20px;
              overflow: hidden;
+            & p{
+                float: right;
+            }
             & img{
                 width:100%;
                 transition:transform 1s;
