@@ -30,7 +30,8 @@ class Register extends Base {
             return result;
         }
         // 写入数据库
-        const [isOk, msg] = this._addToDB();
+        const [isOk, msg] = await this._addToDB();
+        // 返回结果
         return this.buildResData(msg, isOk);
     }
     /**

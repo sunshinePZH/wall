@@ -29,3 +29,14 @@
 #### 接口类
 
 返回值已上述为准
+
+## 接口
+
+1. 注册 /api/register/register
+
+参数：
+
+- username [string] 邮箱，必需符合邮箱规则
+- password [string] 密码，6-24位
+
+返回值：略

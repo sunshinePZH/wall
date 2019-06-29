@@ -88,7 +88,7 @@ http.createServer( async (request, response) => {
     // 请求静态文件
     } else {
         const res = await readFiles(pathname).catch( error => {
-            console.error(error);
+            console.error('error', error);
 
             statuCode = 404;
             data = error;
