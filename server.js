@@ -6,7 +6,11 @@ const querystring = require('querystring');
 const util = require('./server/utils/util.js');
 const createModuleInstance = require('./server/api.js');
 
-// 处理接口
+/**
+ * 执行api对应对的方法，返回处理结果对象
+ * @param {*} api 
+ * @param {*} params 
+ */
 const execApi = async (api, params) => {
     const arr = api.split('/');
     const moduleName = arr[0];
@@ -20,7 +24,10 @@ const execApi = async (api, params) => {
     return result;
 }
 
-// 获取 解析参数 
+/**
+ * 根据请求类型，解析接受的参数，并返回
+ * @param {obj} request 请求对象
+ */
 const getParams = (request) => {
     return new Promise((resolve, reject) => {
         if (request.method === 'GET') {
@@ -40,7 +47,10 @@ const getParams = (request) => {
     
 }
 
-// 读取文件
+/**
+ * 读取指定路径下的文件，返回读取的字符串或读取失败信息
+ * @param {*} path 
+ */
 const readFiles = (path) => {
     path = '.' + path;
     return new Promise((resolve, reject) => {
@@ -50,27 +60,42 @@ const readFiles = (path) => {
     });
 }
 
-// 服务
+/**
+ * 服务器入口，接受请求并返回结果
+ */
 http.createServer( async (request, response) => {
+    console.log(`request:${request.url}`)
+
     let statuCode = 200;
     let data;
-    console.log(`request:${request.url}`)
+
     const urlObject = url.parse(request.url);
     const pathname = urlObject.pathname;
-    // 请求接口 "/api/module/fn"
+    // 请求接口（ex: /api/module/fn）
     if (pathname.slice(0, 4) === '/api') {
         // 获取传递的参数
         const params = await getParams(request);
         let api = pathname.slice(5);
-        data = await execApi(api, params);
-        console.log(`返回值:`, data)
-    // 请求静态文件
-    } else {
-        data = await readFiles(pathname).catch( error => {
-            console.error(error);
+        const res = await execApi(api, params).catch( error => {
             statuCode = 404;
             data = error;
         });
+        if (res) {
+            data = res;
+        }
+
+        console.log(`返回值:`, data)
+    // 请求静态文件
+    } else {
+        const res = await readFiles(pathname).catch( error => {
+            console.error(error);
+
+            statuCode = 404;
+            data = error;
+        });
+        if (res) {
+            data = res;
+        }
     }
 
     // 状态码设置   

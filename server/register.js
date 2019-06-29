@@ -30,7 +30,8 @@ class Register extends Base {
             return result;
         }
         // 写入数据库
-        return this._addToDB();
+        const [isOk, msg] = this._addToDB();
+        return this.buildResData(msg, isOk);
     }
     /**
      * 验证参数
@@ -58,12 +59,14 @@ class Register extends Base {
     }
 
     async _addToDB() {
-        let err;
+        let isOk = true;
+        let msg = '注册成功';
         let sql = 'insert into user (username, password) values ("' + this.params.username + '","' + this.params.password +'")';
-        let res = await this.queryDB(sql).catch((e) => {
-            err = '注册失败';
+        await this.queryDB(sql).catch((e) => {
+            isOk = false;
+            msg = '注册失败';
         });
-        return res ? '注册成功' : err;
+        return [isOk, msg];
     }
 }
 

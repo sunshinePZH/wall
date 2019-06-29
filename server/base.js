@@ -17,6 +17,12 @@ class Base {
             });
         });
     }
+    buildResData(data, isError = false) {
+        return JSON.stringify({
+            error: isError,
+            data
+        });
+    }
 }
 
 const connentMysql = () => {
