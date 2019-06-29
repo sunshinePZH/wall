@@ -7,13 +7,6 @@ const validator = require('./validator.js')
 /**
  * 数据库字段：userid username password createTime modifyTime
  */
-/**
- * 遗留问题
- * - 数据库不存在时 操作其报错情况 -报错
- * - 字段不存在时 报错情况 
- * - 数据库不存在时可否自动添加个 -写个批量加的脚本
- * - createTime modifyTime 可否改为自动，给所有表都加上 -可
- */
 class Register extends Base {
     constructor() {
         super();
@@ -37,7 +30,8 @@ class Register extends Base {
             return result;
         }
         // 写入数据库
-        return this._addToDB();
+        const [isOk, msg] = this._addToDB();
+        return this.buildResData(msg, isOk);
     }
     /**
      * 验证参数
@@ -65,12 +59,14 @@ class Register extends Base {
     }
 
     async _addToDB() {
-        let err;
+        let isOk = true;
+        let msg = '注册成功';
         let sql = 'insert into user (username, password) values ("' + this.params.username + '","' + this.params.password +'")';
-        let res = await this.queryDB(sql).catch((e) => {
-            err = '注册失败';
+        await this.queryDB(sql).catch((e) => {
+            isOk = false;
+            msg = '注册失败';
         });
-        return res ? '注册成功' : err;
+        return [isOk, msg];
     }
 }
 

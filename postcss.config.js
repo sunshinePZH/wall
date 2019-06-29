@@ -1,6 +1,5 @@
 module.exports = {
   plugins: {
-    "autoprefixer": {},
     "postcss-cssnext": {},
     "postcss-pxtorem": {
       rootValue: 16, // 你在html节点设的font-size大小
