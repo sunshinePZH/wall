@@ -15,9 +15,6 @@ class Login extends Base{
         const sql = 'SELECT * FROM students';
         return this.queryDB(sql);
     }
-    loginOut() {
-        
-    }
 }
 
 module.exports = Login;

@@ -28,4 +28,9 @@
 
 #### 接口类
 
-返回值已上述为准
+#### 已完成接口
+
+1. register/register 注册
+
+参数：username password
+返回值data：'注册成功'|'注册失败'
